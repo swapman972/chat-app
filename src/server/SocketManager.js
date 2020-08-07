@@ -4,7 +4,7 @@ const { VERIFY_USER, USER_CONNECTED, LOGOUT} = require('../Events')
 
 const { createUser, createMessage, createChat } = require('../Factories')
 
-const connectedUser = { }
+let connectedUser = { }
 
 module.exports = function(socket){
     console.log('Socket Id' + socket.id) 
@@ -17,9 +17,17 @@ module.exports = function(socket){
             callback({ isUser:false, user:createUser({name:nickname})})
         }
     })
+
+    //user connects with username
+    socket.on(USER_CONNECTED, (user)=>{
+        connectedUser = addUser(connectedUser,user)
+        socket.user = user
+        
+        io.emit(USER_CONNECTED, connectedUser)
+    })
 }
 
-function addUSer(userList, user){
+function addUser(userList, user){
     let newList = Object.assign({}, userList)
     newList[user.name] = user
     return newList
