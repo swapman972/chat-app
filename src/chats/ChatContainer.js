@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SideBar from './SideBar'
+import { TYPING, COMMUNITY_CHAT, MESSAGE_RECEIVED } from '../Events';
 
 export default class ChatContainer extends Component{
     constructor(props){
@@ -9,6 +10,47 @@ export default class ChatContainer extends Component{
             chats: [],
             activeChat: null
         }
+    }
+
+    componentDidMount(){
+        const { socket } = this.props
+        socket.emit(COMMUNITY_CHAT, thus.resetChat)
+    }
+
+    resetChat = (chat)=>{
+        return this.addChat(chat, true)
+    }
+
+    addChat = (chat, reset)=>{
+        const { socket } = this.props
+        const { chats } = this.state
+
+        const newChats = reset ? [chat] : [...chats, chat]
+        this.setState({chats: newChats})
+
+        const messageEvent = `${MESSAGE_RECEIVED}-${chat-id}`
+        const typingEvent = `${TYPING}-${chat-id}`
+
+        socket.on(typingEvent)
+        socket.on(messageEvent)
+    }
+
+    addMessageToChat = (chatId)=>{
+
+    }
+
+    updateTypingInChat = (chatId) =>{
+        
+    }
+
+    sendMessage = (chatId, message)=>{
+        const { socket } = this.props
+        socket.emit(MESSAGE_SENT, {chatId, message} )
+    }
+
+    sendTyping = (chatId, isTyping)=>{
+        const {socket} = this.props
+        socket.emit(TYPING, { chatId, isTyping})
     }
 
     setActiveChat = (activeChat)=>{
@@ -22,11 +64,38 @@ export default class ChatContainer extends Component{
             <div className='container'>
                 <SideBar 
                     logout={logout} 
-                    chat={chats} 
+                    chats={chats} 
                     user={user} 
                     activeChat={activeChat}
                     setActiveChat={this.setActiveChat}
                     />
+                <div className="chat-room-caontainer">
+                    {
+                        activeChat !== null ? (
+                            <div className='chat-room'>
+                                <ChatHeading name={activeChat.name} />
+                                <Messages 
+                                    messages={activeChat.messages}
+                                    user={user}
+                                    typingUser={activeChat.typingUsers}
+                                    />
+                                <MessageInput
+                                    sendMessage={
+                                        (message)=> {
+                                            this.sendMessage(activeChat.id, message)
+                                        }
+                                    }
+                                    sendTyping={
+                                        (isTyping)=>{
+                                            this.sendTyping(activeChat.id, isTyping)
+                                        }
+                                    } 
+                                    />
+
+                            </div>
+                        )
+                    }
+                </div>
             </div>
         )
     }
