@@ -382,28 +382,28 @@ input, textarea {
     justify-content: flex-end
 }
 
-.message-container.right .time{
+.message-container.right .time {
     order: 2;
     margin-left: 25px
 }
 
-.message-container.right .data{
+.message-container.right .data {
     margin-left: 0;
     order: 1
 }
 
-.message-container.right .name{
+.message-container.right .name {
     display: none
 }
 
-.message-container.right .message{
+.message-container.right .message {
     background: #89a1fc;
     color: #fff;
     border-top-right-radius: 0;
     border-top-left-radius: 5px
 }
 
-.message-container.right .message: : before{
+.message-container.right .message::before {
     border-top-color: #89a1fc;
     border-left-color: #89a1fc;
     border-right-color: transparent;
@@ -411,12 +411,12 @@ input, textarea {
     right: -7px
 }
 
-.typing-user{
+.typing-user {
     text-align: right;
     margin: 10px 15px
 }
 
-.message-input{
+.message-input {
     background: white;
     color: #484d79;
     box-sizing: border-box;
@@ -424,14 +424,14 @@ input, textarea {
     max-height: 65px
 }
 
-.message-input .message-form{
+.message-input .message-form {
     height: 100%;
     width: 100%;
     display: flex;
     justify-content: space-between
 }
 
-.message-input .message-form .form-control{
+.message-input .message-form .form-control {
     padding-top: 24px;
     padding-bottom: 24px;
     resize: none;
@@ -442,25 +442,25 @@ input, textarea {
     border: none
 }
 
-.message-input .message-form .form-control: : -webkit-scrollbar-track{
+.message-input .message-form .form-control::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     background-color: #cac8ee
 }
 
-.message-input .message-form .form-control: : -webkit-scrollbar{
+.message-input .message-form .form-control::-webkit-scrollbar {
     width: 5px;
     background-color: green
 }
 
-.message-input .message-form .form-control: : -webkit-scrollbar-thumb{
+.message-input .message-form .form-control::-webkit-scrollbar-thumb {
     background-color: #484d79
 }
 
-.message-input .message-form .form-control: focus{
+.message-input .message-form .form-control:focus {
     outline: none
 }
 
-.message-input .message-form .send{
+.message-input .message-form .send {
     width: 20%;
     box-sizing: border-box;
     font-size: 1.25em;
@@ -472,7 +472,7 @@ input, textarea {
     transition: all .35s ease-out
 }
 
-.message-input .message-form .send: disabled{
+.message-input .message-form .send:disabled {
     opacity: .2;
     background: #5d5d8a
 }
