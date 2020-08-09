@@ -2,15 +2,13 @@
 const { v4: uuidv4 } = require('uuid');
 
 const createUser = ({name=""} = {}) =>(
-    {
-        id:uuidv4(),
+    {   id:uuidv4(),
         name
     }
 )
 
 const createMessage = ({message="", sender=""} = {})=>(
-    {
-        id:uuidv4(),
+    {   id:uuidv4(),
         time:getTime(new Date(Date.now())),
         message,
         sender
@@ -18,8 +16,7 @@ const createMessage = ({message="", sender=""} = {})=>(
 )
 
 const createChat = ({messages=[], name="Community", user:[]} = {})=>(
-    {
-        id:uuidv4(),
+    {   id:uuidv4(),
         name,
         messages,
         users,

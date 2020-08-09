@@ -7,7 +7,7 @@ import LoginForm from './LoginForm'
 const socketUrl = "http://192.168.1.199:3231"
 export default class Layout extends Component{
 
-    constructor(props) {
+    constructor(props){
         super(props);
 
         this.state = {
@@ -16,12 +16,12 @@ export default class Layout extends Component{
         };
     }
 
-    componentWillMount() {
+    componentWillMount(){
         this.initSocket()
     }
 
     // Connect to and initialize the socket
-    initSocket = () => {
+    initSocket =()=>{
         const socket = io(socketUrl)
 
         socket.on('connect', () => {
@@ -36,7 +36,7 @@ export default class Layout extends Component{
         this.setState({user})
     }
 
-    logout = () =>{
+    logout =()=>{
         const { socket } = this.state
         socket.emit(LOGOUT)
         this.setState({user:null})
