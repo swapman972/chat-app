@@ -32,15 +32,24 @@ export default class ChatContainer extends Component{
         const typingEvent = `${TYPING}-${chat-id}`
 
         socket.on(typingEvent)
-        socket.on(messageEvent)
+        socket.on(messageEvent, this.addMessageToChat(chatId))
     }
 
     addMessageToChat = (chatId)=>{
+        return message =>{
+            const { chats } = this.state
+            let newChats = chats.map((chat)=> {
+                if(chat.id === chatId)
+                    chat.messages.push(message)
+                return chat
+            })
 
+            this.setState({chats: newChats})
+        }
     }
 
     updateTypingInChat = (chatId) =>{
-        
+
     }
 
     sendMessage = (chatId, message)=>{
@@ -93,7 +102,10 @@ export default class ChatContainer extends Component{
                                     />
 
                             </div>
-                        )
+                        ):
+                        <div className='chat-room choose'>
+                            <h3>Choose a Chat!</h3>
+                        </div>
                     }
                 </div>
             </div>
