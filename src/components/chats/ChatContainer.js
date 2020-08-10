@@ -17,7 +17,7 @@ export default class ChatContainer extends Component{
 
     componentDidMount(){
         const { socket } = this.props
-        socket.emit(COMMUNITY_CHAT, thus.resetChat)
+        socket.emit(COMMUNITY_CHAT, this.resetChat)
     }
 
     resetChat = (chat)=>{
@@ -81,7 +81,7 @@ export default class ChatContainer extends Component{
                     activeChat={activeChat}
                     setActiveChat={this.setActiveChat}
                     />
-                <div className="chat-room-caontainer">
+                <div className="chat-room-container">
                     {
                         activeChat !== null ? (
                             <div className='chat-room'>

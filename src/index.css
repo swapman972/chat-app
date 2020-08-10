@@ -57,10 +57,11 @@ input, textarea {
 }
 
 #side-bar {
+    position: absolute;
     box-sizing:border-box;
-    width:33.75%;
-    height:100%;
-    display:flex;
+    width: 33.75%;
+    height: 100%;
+    display: flex;
     justify-content:space-around;
     flex-direction:column
 }
@@ -281,6 +282,8 @@ input, textarea {
 }
 
 .chat-room.choose {
+    position: relative;
+    left: 15%;
     align-items: center;
     justify-content: center;
     font-size: 2em
