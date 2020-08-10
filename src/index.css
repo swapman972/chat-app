@@ -36,15 +36,15 @@ input, textarea {
 }
 
 .login-form input:focus {
-    border-bottom:solid 2px #5d5d8a;
-    outline:none
+    border-bottom: solid 2px #5d5d8a;
+    outline: none
 }
 
 .login-form .error {
-    text-align:center;
-    margin:5px 0;
-    padding:5px 10px;
-    color:#c92c43
+    text-align: center;
+    margin: 5px 0;
+    padding: 5px 10px;
+    color: #c92c43
 }
 
 .container {
@@ -62,8 +62,8 @@ input, textarea {
     width: 33.75%;
     height: 100%;
     display: flex;
-    justify-content:space-around;
-    flex-direction:column
+    justify-content: space-around;
+    flex-direction: column
 }
 
 #side-bar .heading {
