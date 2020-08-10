@@ -6,25 +6,25 @@ import Messages from '../messages/Messages'
 import MessageInput from '../messages/MessageInput'
 
 export default class ChatContainer extends Component{
-    constructor(props){
-        super(props)
 
+    constructor(props) {
+        super(props)
         this.state={
             chats: [],
             activeChat: null
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         const { socket } = this.props
         socket.emit(COMMUNITY_CHAT, this.resetChat)
     }
 
-    resetChat = (chat)=>{
+    resetChat = (chat)=> {
         return this.addChat(chat, true)
     }
 
-    addChat = (chat, reset)=>{
+    addChat = (chat, reset)=> {
         const { socket } = this.props
         const { chats } = this.state
 
@@ -46,7 +46,6 @@ export default class ChatContainer extends Component{
                     chat.messages.push(message)
                 return chat
             })
-
             this.setState({chats: newChats})
         }
     }
