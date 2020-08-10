@@ -1,17 +1,22 @@
 const io = require('./index.js').io
 
-const { VERIFY_USER, USER_CONNECTED, LOGOUT} = require('../Events')
+const { VERIFY_USER, USER_CONNECTED, LOGOUT, 
+    USER_DISCONNECTED, COMMUNITY_CHAT, MESSAGE_RECEIVED, MESSAGE_SENT} = require('../Events')
 
 const { createUser, createMessage, createChat } = require('../Factories')
 
-let connectedUser = { }
+let connectedUsers = { }
+
+let communityChat = createChat()
 
 module.exports = function(socket){
     console.log('Socket Id' + socket.id) 
 
+    let sendMessageToChatFromUser
+
     //Verify Username
     socket.on(VERIFY_USER, (nickname, callback)=>{
-        if(isUser(connectedUser, nickname)){
+        if(isUser(connectedUsers, nickname)){
             callback({ isUser:true, user:null})
         }else {
             callback({ isUser:false, user:createUser({name:nickname})})
@@ -20,11 +25,45 @@ module.exports = function(socket){
 
     //user connects with username
     socket.on(USER_CONNECTED, (user)=>{
-        connectedUser = addUser(connectedUser,user)
+        connectedUsers = addUser(connectedUsers,user)
         socket.user = user
+
+        sendMessageToChatFromUser = sendMessageToChat(user.name)
         
-        io.emit(USER_CONNECTED, connectedUser)
+        io.emit(USER_CONNECTED, connectedUsers)
     })
+
+    //User disconnects
+    socket.on('disconnect', () =>{
+        if('user' in socket){
+            connectedUsers = removeUser(connectedUsers, socket.user.name)
+
+            io.emit(USER_DISCONNECTED, connectedUsers)
+            // console.log('Disconnect', connectedUsers)
+        }
+    })
+
+    //User logs out
+    socket.on(LOGOUT, ()=>{
+        connectedUsers = removeUser(connectedUsers, socket.user.name)
+        io.emit(USER_DISCONNECTED, connectedUsers)
+        console.log('bye, remaining user:', connectedUsers)
+    })
+
+    //Get Community Chat
+    socket.on(COMMUNITY_CHAT, (callback)=>{
+        callback(communityChat)
+    })
+
+    socket.on(MESSAGE_RECEIVED, ({chatId, message})=>{
+        sendMessageToChatFromUser(chatId, message)
+    })
+}
+
+function sendMessageToChat(sender){
+    return(chatId, message)=>{
+        io.emit(`${MESSAGE_RECEIVED}-${chatId}`, createMessage({message, sender}))
+    }
 }
 
 function addUser(userList, user){
