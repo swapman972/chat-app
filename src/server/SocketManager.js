@@ -1,7 +1,7 @@
 const io = require('./index.js').io
 
 const { VERIFY_USER, USER_CONNECTED, LOGOUT, 
-    USER_DISCONNECTED, COMMUNITY_CHAT, MESSAGE_RECEIVED, MESSAGE_SENT} = require('../Events')
+    USER_DISCONNECTED, COMMUNITY_CHAT, MESSAGE_RECEIVED, MESSAGE_SENT, TYPING} = require('../Events')
 
 const { createUser, createMessage, createChat } = require('../Factories')
 
@@ -57,6 +57,10 @@ module.exports = function(socket){
 
     socket.on(MESSAGE_RECEIVED, ({chatId, message})=>{
         sendMessageToChatFromUser(chatId, message)
+    })
+
+    socket.on(TYPING, ({chatId, isTyping})=> {
+        
     })
 }
 
