@@ -63,7 +63,12 @@ module.exports = function(socket){
     socket.on(TYPING, ({chatId, isTyping})=> {
 
     })
+
 }
+
+
+
+
 
 function sendMessageToChat(sender){
     return(chatId, message)=>{
