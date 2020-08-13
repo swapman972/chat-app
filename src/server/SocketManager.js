@@ -59,8 +59,9 @@ module.exports = function(socket){
         sendMessageToChatFromUser(chatId, message)
     })
 
+    //typing feature
     socket.on(TYPING, ({chatId, isTyping})=> {
-        
+
     })
 }
 
