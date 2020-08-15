@@ -6,8 +6,8 @@ export default class MessageInput extends Component {
 	  super(props);
 	
 	  this.state = {
-	  	message:"",
-	  	isTyping:false
+	  	message: "",
+	  	isTyping: false
 	  };
 
 	}
@@ -15,10 +15,10 @@ export default class MessageInput extends Component {
 	handleSubmit = (e)=>{
 		e.preventDefault()
 		this.sendMessage()
-		this.setState({message:""})
+		this.setState({message: ""})
 	}
 
-	sendMessage = ()=>{
+	sendMessage = () =>{
 		this.props.sendMessage(this.state.message)
 	}
 
@@ -26,20 +26,18 @@ export default class MessageInput extends Component {
 	  this.stopCheckingTyping()
 	}
 
-	sendTyping = ()=>{
+	sendTyping = () =>{
 		this.lastUpdateTime = Date.now()
 		if(!this.state.isTyping){
 			this.setState({isTyping:true})
 			this.props.sendTyping(true)
 			this.startCheckingTyping()
 		}
-	}
-
-	
+	}	
     	
     // Start an interval that checks if the user is typing.
         
-	startCheckingTyping = ()=>{
+	startCheckingTyping = () =>{
 		console.log("Typing");
 		this.typingInterval = setInterval(()=>{
 			if((Date.now() - this.lastUpdateTime) > 300){
@@ -81,7 +79,7 @@ export default class MessageInput extends Component {
 						onKeyUp = { e => { e.keyCode !== 13 && this.sendTyping() } }
 						onChange = {
 							({target})=>{
-								this.setState({message:target.value})
+								this.setState({message: target.value})
 							}
 						}
 						/>
