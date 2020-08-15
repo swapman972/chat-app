@@ -19,7 +19,7 @@ module.exports = function(socket){
     //Verify Username
     socket.on(VERIFY_USER, (nickname, callback)=>{
         if(isUser(connectedUsers, nickname)){
-            callback({ isUser:true, user:null})
+            callback({ isUser: true, user: null})
         }else {
             callback({ isUser:false, user:createUser({name:nickname})})
         }
@@ -57,7 +57,7 @@ module.exports = function(socket){
         callback(communityChat)
     })
 
-    socket.on(MESSAGE_RECEIVED, ({chatId, message})=>{
+    socket.on(MESSAGE_SENT, ({chatId, message})=>{
         sendMessageToChatFromUser(chatId, message)
     })
 
@@ -69,7 +69,7 @@ module.exports = function(socket){
 }
 
 function sendTypingToChat(user){
-    return (chatId, istyping)=>{
+    return (chatId, isTyping)=>{
         io.emit(`${TYPING}-${chatId}`, {user, isTyping})
     }
 }
