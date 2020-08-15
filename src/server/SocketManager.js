@@ -66,9 +66,11 @@ module.exports = function(socket){
 
 }
 
-
-
-
+function sendTypingToChat(user){
+    return (chatId, istyping)=>{
+        io.emit(`${TYPING}-${chatId}`, {user, isTyping})
+    }
+}
 
 function sendMessageToChat(sender){
     return(chatId, message)=>{
