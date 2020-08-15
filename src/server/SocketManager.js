@@ -14,6 +14,8 @@ module.exports = function(socket){
 
     let sendMessageToChatFromUser
 
+    let sendTypingFromUser
+
     //Verify Username
     socket.on(VERIFY_USER, (nickname, callback)=>{
         if(isUser(connectedUsers, nickname)){
@@ -29,7 +31,7 @@ module.exports = function(socket){
         socket.user = user
 
         sendMessageToChatFromUser = sendMessageToChat(user.name)
-        
+        sendTypingFromUser = sendTypingToChat(user.name)
         io.emit(USER_CONNECTED, connectedUsers)
     })
 
@@ -61,7 +63,7 @@ module.exports = function(socket){
 
     //typing feature
     socket.on(TYPING, ({chatId, isTyping})=> {
-
+        sendTypingFromUser(chatId, isTyping)
     })
 
 }
